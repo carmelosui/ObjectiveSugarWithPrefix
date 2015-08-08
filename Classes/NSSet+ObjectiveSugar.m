@@ -11,7 +11,7 @@
 
 @implementation NSSet (ObjectiveSugar)
 
-- (id)firstObject {
+-  (id)ojs_firstObject {
     NSArray *allObjects = self.allObjects;
 
     if (allObjects.count > 0)
@@ -19,21 +19,21 @@
     return nil;
 }
 
-- (id)lastObject {
+-  (id)ojs_lastObject {
     return self.allObjects.lastObject;
 }
 
-- (id)sample {
+-  (id)ojs_sample {
     return [self anyObject];
 }
 
-- (void)each:(void (^)(id))block {
+-  (void)ojs_each:(void (^)(id))block {
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         block(obj);
     }];
 }
 
-- (void)eachWithIndex:(void (^)(id, int))block {
+-  (void)ojs_eachWithIndex:(void (^)(id, int))block {
     __block int counter = 0;
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         block(obj, counter);
@@ -41,7 +41,7 @@
     }];
 }
 
-- (NSArray *)map:(id (^)(id object))block {
+-  (NSArray *)ojs_map:(id (^)(id object))block {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
 
 
@@ -55,7 +55,7 @@
     return array;
 }
 
-- (NSArray *)select:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_select:(BOOL (^)(id object))block {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
 
     for (id object in self) {
@@ -67,7 +67,7 @@
     return array;
 }
 
-- (NSArray *)reject:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_reject:(BOOL (^)(id object))block {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
 
     for (id object in self) {
@@ -79,16 +79,16 @@
     return array;
 }
 
-- (NSArray *)sort {
+-  (NSArray *)ojs_sort {
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
     return [self sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
-- (id)reduce:(id(^)(id accumulator, id object))block {
-    return [self reduce:nil withBlock:block];
+-  (id)ojs_reduce:(id(^)(id accumulator, id object))block {
+    return [self ojs_reduce:nil withBlock:block];
 }
 
-- (id)reduce:(id)initial withBlock:(id(^)(id accumulator, id object))block {
+-  (id)ojs_reduce:(id)initial withBlock:(id(^)(id accumulator, id object))block {
 	id accumulator = initial;
 
 	for(id object in self)
@@ -100,11 +100,11 @@
 
 #pragma mark - Deprecations
 
-- (id)first DEPRECATED_ATTRIBUTE {
+-  (id)ojs_first DEPRECATED_ATTRIBUTE {
     return [self firstObject];
 }
 
-- (id)last DEPRECATED_ATTRIBUTE {
+-  (id)ojs_last DEPRECATED_ATTRIBUTE {
     return [self lastObject];
 }
 

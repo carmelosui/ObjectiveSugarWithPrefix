@@ -10,25 +10,25 @@
 
 @implementation NSDictionary (Rubyfy)
 
-- (void)each:(void (^)(id k, id v))block {
+-  (void)ojs_each:(void (^)(id k, id v))block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(key, obj);
     }];
 }
 
-- (void)eachKey:(void (^)(id k))block {
+-  (void)ojs_eachKey:(void (^)(id k))block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(key);
     }];
 }
 
-- (void)eachValue:(void (^)(id v))block {
+-  (void)ojs_eachValue:(void (^)(id v))block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(obj);
     }];
 }
 
-- (NSArray *)map:(id (^)(id key, id value))block {
+-  (NSArray *)ojs_map:(id (^)(id key, id value))block {
     NSMutableArray *array = [NSMutableArray array];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -41,11 +41,11 @@
     return array;
 }
 
-- (BOOL)hasKey:(id)key {
+-  (BOOL)ojs_hasKey:(id)key {
     return !!self[key];
 }
 
-- (NSDictionary *)pick:(NSArray *)keys {
+-  (NSDictionary *)ojs_pick:(NSArray *)keys {
     NSMutableDictionary *picked = [[NSMutableDictionary alloc] initWithCapacity:keys.count];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -57,7 +57,7 @@
     return picked;
 }
 
-- (NSDictionary *)omit:(NSArray *)keys {
+-  (NSDictionary *)ojs_omit:(NSArray *)keys {
     NSMutableDictionary *omitted = [[NSMutableDictionary alloc] initWithCapacity:([self allKeys].count - keys.count)];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

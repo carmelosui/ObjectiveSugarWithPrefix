@@ -11,36 +11,36 @@
 
 @implementation NSMutableArray (ObjectiveSugar)
 
-- (void)push:(id)object {
+-  (void)ojs_push:(id)object {
     [self addObject:object];
 }
 
-- (id)pop {
+-  (id)ojs_pop {
     id object = [self lastObject];
     [self removeLastObject];
 
     return object;
 }
 
-- (NSArray *)pop:(NSUInteger)numberOfElements {
+-  (NSArray *)ojs_pop:(NSUInteger)numberOfElements {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:numberOfElements];
 
     for (NSUInteger i = 0; i < numberOfElements; i++)
-        [array insertObject:[self pop] atIndex:0];
+        [array insertObject:[self ojs_pop] atIndex:0];
 
     return array;
 }
 
-- (void)concat:(NSArray *)array {
+-  (void)ojs_concat:(NSArray *)array {
     [self addObjectsFromArray:array];
 }
 
-- (id)shift {
-    NSArray *result = [self shift:1];
+-  (id)ojs_shift {
+    NSArray *result = [self ojs_shift:1];
     return [result firstObject];
 }
 
-- (NSArray *)shift:(NSUInteger)numberOfElements {
+-  (NSArray *)ojs_shift:(NSUInteger)numberOfElements {
     NSUInteger shiftLength = MIN(numberOfElements, [self count]);
 
     NSRange range = NSMakeRange(0, shiftLength);
@@ -50,7 +50,7 @@
     return result;
 }
 
-- (NSArray *)keepIf:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_keepIf:(BOOL (^)(id object))block {
     [self filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return block(evaluatedObject);
     }]];

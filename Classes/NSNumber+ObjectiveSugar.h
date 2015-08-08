@@ -10,36 +10,36 @@
 
 @interface NSNumber (ObjectiveSugar)
 
-- (void)times:(void(^)(void))block;
-- (void)timesWithIndex:(void(^)(NSUInteger index))block;
+-  (void)ojs_times:(void(^)(void))block;
+-  (void)ojs_timesWithIndex:(void(^)(NSUInteger index))block;
 
-- (void)upto:(int)number do:(void(^)(NSInteger number))block;
-- (void)downto:(int)number do:(void(^)(NSInteger number))block;
+-  (void)ojs_upto:(int)number do:(void(^)(NSInteger number))block;
+-  (void)ojs_downto:(int)number do:(void(^)(NSInteger number))block;
 
 // Numeric inflections
-- (NSNumber *)seconds;
-- (NSNumber *)minutes;
-- (NSNumber *)hours;
-- (NSNumber *)days;
-- (NSNumber *)weeks;
-- (NSNumber *)fortnights;
-- (NSNumber *)months;
-- (NSNumber *)years;
+-  (NSNumber *)ojs_seconds;
+-  (NSNumber *)ojs_minutes;
+-  (NSNumber *)ojs_hours;
+-  (NSNumber *)ojs_days;
+-  (NSNumber *)ojs_weeks;
+-  (NSNumber *)ojs_fortnights;
+-  (NSNumber *)ojs_months;
+-  (NSNumber *)ojs_years;
 
 // There are singular aliases for the above methods
-- (NSNumber *)second;
-- (NSNumber *)minute;
-- (NSNumber *)hour;
-- (NSNumber *)day;
-- (NSNumber *)week;
-- (NSNumber *)fortnight;
-- (NSNumber *)month;
-- (NSNumber *)year;
+-  (NSNumber *)ojs_second;
+-  (NSNumber *)ojs_minute;
+-  (NSNumber *)ojs_hour;
+-  (NSNumber *)ojs_day;
+-  (NSNumber *)ojs_week;
+-  (NSNumber *)ojs_fortnight;
+-  (NSNumber *)ojs_month;
+-  (NSNumber *)ojs_year;
 
-- (NSDate *)ago;
-- (NSDate *)ago:(NSDate *)time;
-- (NSDate *)since:(NSDate *)time;
-- (NSDate *)until:(NSDate *)time;
-- (NSDate *)fromNow;
+-  (NSDate *)ojs_ago;
+-  (NSDate *)ojs_ago:(NSDate *)time;
+-  (NSDate *)ojs_since:(NSDate *)time;
+-  (NSDate *)ojs_until:(NSDate *)time;
+-  (NSDate *)ojs_fromNow;
 
 @end

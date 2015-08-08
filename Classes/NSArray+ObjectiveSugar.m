@@ -14,16 +14,16 @@ static NSString * const OSMinusString = @"-";
 
 @implementation NSArray (ObjectiveSugar)
 
-- (id)sample {
+-  (id)ojs_sample {
     if (self.count == 0) return nil;
 
     NSUInteger index = arc4random_uniform((u_int32_t)self.count);
     return self[index];
 }
 
-- (id)objectForKeyedSubscript:(id)key {
+-  (id)ojs_objectForKeyedSubscript:(id)key {
     if ([key isKindOfClass:[NSString class]])
-        return [self subarrayWithRange:[self rangeFromString:key]];
+        return [self subarrayWithRange:[self ojs_rangeFromString:key]];
 
     else if ([key isKindOfClass:[NSValue class]])
         return [self subarrayWithRange:[key rangeValue]];
@@ -34,7 +34,7 @@ static NSString * const OSMinusString = @"-";
     return nil;
 }
 
-- (NSRange)rangeFromString:(NSString *)string {
+-  (NSRange)ojs_rangeFromString:(NSString *)string {
     NSRange range = NSRangeFromString(string);
 
     if ([string containsString:@"..."]) {
@@ -47,39 +47,39 @@ static NSString * const OSMinusString = @"-";
     return range;
 }
 
-- (void)each:(void (^)(id object))block {
+-  (void)ojs_each:(void (^)(id object))block {
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj);
     }];
 }
 
-- (void)eachWithIndex:(void (^)(id object, NSUInteger index))block {
+-  (void)ojs_eachWithIndex:(void (^)(id object, NSUInteger index))block {
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj, idx);
     }];
 }
 
-- (void)each:(void (^)(id object))block options:(NSEnumerationOptions)options {
+-  (void)ojs_each:(void (^)(id object))block options:(NSEnumerationOptions)options {
     [self enumerateObjectsWithOptions:options usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj);
     }];
 }
 
-- (void)eachWithIndex:(void (^)(id object, NSUInteger index))block options:(NSEnumerationOptions)options {
+-  (void)ojs_eachWithIndex:(void (^)(id object, NSUInteger index))block options:(NSEnumerationOptions)options {
     [self enumerateObjectsWithOptions:options usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj, idx);
     }];
 }
 
-- (BOOL)includes:(id)object {
+-  (BOOL)ojs_includes:(id)object {
     return [self containsObject:object];
 }
 
-- (NSArray *)take:(NSUInteger)numberOfElements {
+-  (NSArray *)ojs_take:(NSUInteger)numberOfElements {
     return [self subarrayWithRange:NSMakeRange(0, MIN(numberOfElements, [self count]))];
 }
 
-- (NSArray *)takeWhile:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_takeWhile:(BOOL (^)(id object))block {
     NSMutableArray *array = [NSMutableArray array];
 
     for (id arrayObject in self) {
@@ -92,7 +92,7 @@ static NSString * const OSMinusString = @"-";
     return array;
 }
 
-- (NSArray *)map:(id (^)(id object))block {
+-  (NSArray *)ojs_map:(id (^)(id object))block {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
 
     for (id object in self) {
@@ -102,19 +102,19 @@ static NSString * const OSMinusString = @"-";
     return array;
 }
 
-- (NSArray *)select:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_select:(BOOL (^)(id object))block {
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return block(evaluatedObject);
     }]];
 }
 
-- (NSArray *)reject:(BOOL (^)(id object))block {
+-  (NSArray *)ojs_reject:(BOOL (^)(id object))block {
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return !block(evaluatedObject);
     }]];
 }
 
-- (id)detect:(BOOL (^)(id object))block {
+-  (id)ojs_detect:(BOOL (^)(id object))block {
     for (id object in self) {
         if (block(object))
             return object;
@@ -122,16 +122,16 @@ static NSString * const OSMinusString = @"-";
     return nil;
 }
 
-- (id)find:(BOOL (^)(id object))block {
-    return [self detect:block];
+-  (id)ojs_find:(BOOL (^)(id object))block {
+    return [self ojs_detect:block];
 }
 
-- (NSArray *)flatten {
+-  (NSArray *)ojs_flatten {
     NSMutableArray *array = [NSMutableArray array];
 
     for (id object in self) {
         if ([object isKindOfClass:NSArray.class]) {
-            [array concat:[object flatten]];
+            [array ojs_concat:[object ojs_flatten]];
         } else {
             [array addObject:object];
         }
@@ -140,38 +140,38 @@ static NSString * const OSMinusString = @"-";
     return array;
 }
 
-- (NSArray *)compact {
-    return [self select:^BOOL(id object) {
+-  (NSArray *)ojs_compact {
+    return [self ojs_select:^BOOL(id object) {
         return object != [NSNull null];
     }];
 }
 
-- (NSString *)join {
+-  (NSString *)ojs_join {
     return [self componentsJoinedByString:@""];
 }
 
-- (NSString *)join:(NSString *)separator {
+-  (NSString *)ojs_join:(NSString *)separator {
     return [self componentsJoinedByString:separator];
 }
 
-- (NSArray *)sort {
+-  (NSArray *)ojs_sort {
     return [self sortedArrayUsingSelector:@selector(compare:)];
 }
 
-- (NSArray *)sortBy:(NSString*)key; {
+-  (NSArray *)ojs_sortBy:(NSString*)key; {
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:key ascending:YES];
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
 
-- (NSArray *)reverse {
+-  (NSArray *)ojs_reverse {
     return self.reverseObjectEnumerator.allObjects;
 }
 
-- (id)reduce:(id (^)(id accumulator, id object))block {
-    return [self reduce:nil withBlock:block];
+-  (id)ojs_reduce:(id (^)(id accumulator, id object))block {
+    return [self ojs_reduce:nil withBlock:block];
 }
 
-- (id)reduce:(id)initial withBlock:(id (^)(id accumulator, id object))block {
+-  (id)ojs_reduce:(id)initial withBlock:(id (^)(id accumulator, id object))block {
 	id accumulator = initial;
 
 	for(id object in self)
@@ -180,32 +180,31 @@ static NSString * const OSMinusString = @"-";
 	return accumulator;
 }
 
-- (NSArray *)unique
-{
+-  (NSArray *)ojs_unique {
   return [[NSOrderedSet orderedSetWithArray:self] array];
 }
 
 #pragma mark - Set operations
 
-- (NSArray *)intersectionWithArray:(NSArray *)array {
+-  (NSArray *)ojs_intersectionWithArray:(NSArray *)array {
     NSPredicate *intersectPredicate = [NSPredicate predicateWithFormat:@"SELF IN %@", array];
     return [self filteredArrayUsingPredicate:intersectPredicate];
 }
 
-- (NSArray *)unionWithArray:(NSArray *)array {
-    NSArray *complement = [self relativeComplement:array];
+-  (NSArray *)ojs_unionWithArray:(NSArray *)array {
+    NSArray *complement = [self ojs_relativeComplement:array];
     return [complement arrayByAddingObjectsFromArray:array];
 }
 
-- (NSArray *)relativeComplement:(NSArray *)array {
+-  (NSArray *)ojs_relativeComplement:(NSArray *)array {
     NSPredicate *relativeComplementPredicate = [NSPredicate predicateWithFormat:@"NOT SELF IN %@", array];
     return [self filteredArrayUsingPredicate:relativeComplementPredicate];
 }
 
-- (NSArray *)symmetricDifference:(NSArray *)array {
-    NSArray *aSubtractB = [self relativeComplement:array];
-    NSArray *bSubtractA = [array relativeComplement:self];
-    return [aSubtractB unionWithArray:bSubtractA];
+-  (NSArray *)ojs_symmetricDifference:(NSArray *)array {
+    NSArray *aSubtractB = [self ojs_relativeComplement:array];
+    NSArray *bSubtractA = [array ojs_relativeComplement:self];
+    return [aSubtractB ojs_unionWithArray:bSubtractA];
 }
 
 #pragma mark - Private
@@ -216,15 +215,15 @@ static inline BOOL isBackwardsRange(NSString *rangeString) {
 
 #pragma mark - Aliases
 
-- (id)anyObject {
-    return [self sample];
+-  (id)ojs_anyObject {
+    return [self ojs_sample];
 }
 
-- (id)first DEPRECATED_ATTRIBUTE {
+-  (id)ojs_first{
     return [self firstObject];
 }
 
-- (id)last DEPRECATED_ATTRIBUTE {
+-  (id)ojs_last DEPRECATED_ATTRIBUTE {
     return [self lastObject];
 }
 

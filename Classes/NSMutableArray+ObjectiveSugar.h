@@ -11,7 +11,7 @@
 @interface NSMutableArray (ObjectiveSugar)
 
 /// Alias for -addObject. Appends the given object at the end
-- (void)push:(id)object;
+-  (void)ojs_push:(id)object;
 
 /**
  Removes the last item of the array, and returns that item
@@ -19,7 +19,7 @@
 
  @return First array item or nil.
  */
-- (id)pop;
+-  (id)ojs_pop;
 
 
 /**
@@ -28,8 +28,8 @@
 
  @return First array item or nil.
  */
-- (NSArray *)pop:(NSUInteger)numberOfElements;
-- (void)concat:(NSArray *)array;
+-  (NSArray *)ojs_pop:(NSUInteger)numberOfElements;
+-  (void)ojs_concat:(NSArray *)array;
 
 
 /**
@@ -38,7 +38,7 @@
 
  @return First array item or nil.
  */
-- (id)shift;
+-  (id)ojs_shift;
 
 
 /**
@@ -47,7 +47,7 @@
 
  @return Array of first N items or empty array.
  */
-- (NSArray *)shift:(NSUInteger)numberOfElements;
+-  (NSArray *)ojs_shift:(NSUInteger)numberOfElements;
 
 
 /**
@@ -56,6 +56,6 @@
  @param A block that returns YES/NO
  @return An array of elements
  */
-- (NSArray *)keepIf:(BOOL (^)(id object))block;
+-  (NSArray *)ojs_keepIf:(BOOL (^)(id object))block;
 
 @end

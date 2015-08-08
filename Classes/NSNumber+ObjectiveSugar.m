@@ -10,108 +10,108 @@
 
 @implementation NSNumber (ObjectiveSugar)
 
-- (void)times:(void (^)(void))block {
+-  (void)ojs_times:(void (^)(void))block {
     for (int i = 0; i < self.integerValue; i++)
         block();
 }
 
-- (void)timesWithIndex:(void (^)(NSUInteger))block {
+-  (void)ojs_timesWithIndex:(void (^)(NSUInteger))block {
     for (NSUInteger i = 0; i < self.unsignedIntegerValue; i++)
         block(i);
 }
 
-- (void)upto:(int)number do:(void (^)(NSInteger))block {
+-  (void)ojs_upto:(int)number do:(void (^)(NSInteger))block {
     for (NSInteger i = self.integerValue; i <= number; i++)
         block(i);
 }
 
-- (void)downto:(int)number do:(void (^)(NSInteger))block {
+-  (void)ojs_downto:(int)number do:(void (^)(NSInteger))block {
     for (NSInteger i = self.integerValue; i >= number; i--)
         block(i);
 }
 
-- (NSNumber *)second {
-    return self.seconds;
+-  (NSNumber *)ojs_second {
+    return self.ojs_seconds;
 }
 
-- (NSNumber *)seconds {
+-  (NSNumber *)ojs_seconds {
     return self;
 }
 
-- (NSNumber *)minute {
-    return self.minutes;
+-  (NSNumber *)ojs_minute {
+    return self.ojs_minutes;
 }
 
-- (NSNumber *)minutes {
+-  (NSNumber *)ojs_minutes {
     return @(self.floatValue * 60);
 }
 
-- (NSNumber *)hour {
-    return self.hours;
+-  (NSNumber *)ojs_hour {
+    return self.ojs_hours;
 }
 
-- (NSNumber *)hours {
-    return @(self.floatValue * [@60 minutes].integerValue);
+-  (NSNumber *)ojs_hours {
+    return @(self.floatValue * [@60 ojs_minutes].integerValue);
 }
 
-- (NSNumber *)day {
-    return self.days;
+-  (NSNumber *)ojs_day {
+    return self.ojs_days;
 }
 
-- (NSNumber *)days {
-    return @(self.floatValue * [@24 hours].integerValue);
+-  (NSNumber *)ojs_days {
+    return @(self.floatValue * [@24 ojs_hours].integerValue);
 }
 
-- (NSNumber *)week {
-    return self.weeks;
+-  (NSNumber *)ojs_week {
+    return self.ojs_weeks;
 }
 
-- (NSNumber *)weeks {
-    return @(self.floatValue * [@7 days].integerValue);
+-  (NSNumber *)ojs_weeks {
+    return @(self.floatValue * [@7 ojs_days].integerValue);
 }
 
-- (NSNumber *)fortnight {
-    return self.fortnights;
+-  (NSNumber *)ojs_fortnight {
+    return self.ojs_fortnights;
 }
 
-- (NSNumber *)fortnights {
-    return @(self.floatValue * [@2 weeks].integerValue);
+-  (NSNumber *)ojs_fortnights {
+    return @(self.floatValue * [@2 ojs_weeks].integerValue);
 }
 
-- (NSNumber *)month {
-    return self.months;
+-  (NSNumber *)ojs_month {
+    return self.ojs_months;
 }
 
-- (NSNumber *)months {
-    return @(self.floatValue * [@30 days].integerValue);
+-  (NSNumber *)ojs_months {
+    return @(self.floatValue * [@30 ojs_days].integerValue);
 }
 
-- (NSNumber *)year {
-    return self.years;
+-  (NSNumber *)ojs_year {
+    return self.ojs_years;
 }
 
-- (NSNumber *)years {
-    return @(self.floatValue * [@(365.25) days].integerValue);
+-  (NSNumber *)ojs_years {
+    return @(self.floatValue * [@(365.25) ojs_days].integerValue);
 }
 
-- (NSDate *)ago {
-    return [self ago:[NSDate date]];
+-  (NSDate *)ojs_ago {
+    return [self ojs_ago:[NSDate date]];
 }
 
-- (NSDate *)ago:(NSDate *)time {
+-  (NSDate *)ojs_ago:(NSDate *)time {
     return [NSDate dateWithTimeIntervalSince1970:([time timeIntervalSince1970] - self.floatValue)];
 }
 
-- (NSDate *)since:(NSDate *)time {
+-  (NSDate *)ojs_since:(NSDate *)time {
     return [NSDate dateWithTimeIntervalSince1970:([time timeIntervalSince1970] + self.floatValue)];
 }
 
-- (NSDate *)until:(NSDate *)time {
-    return [self ago:time];
+-  (NSDate *)ojs_until:(NSDate *)time {
+    return [self ojs_ago:time];
 }
 
-- (NSDate *)fromNow {
-    return [self since:[NSDate date]];
+-  (NSDate *)ojs_fromNow {
+    return [self ojs_since:[NSDate date]];
 }
 
 @end

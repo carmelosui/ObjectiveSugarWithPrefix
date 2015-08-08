@@ -10,12 +10,12 @@
 
 @interface NSDictionary (ObjectiveSugar)
 
-- (void)each:(void (^)(id key, id value))block;
-- (void)eachKey:(void (^)(id key))block;
-- (void)eachValue:(void (^)(id value))block;
-- (NSArray *)map:(id (^)(id key, id value))block;
-- (BOOL)hasKey:(id)key;
-- (NSDictionary *)pick:(NSArray *)keys;
-- (NSDictionary *)omit:(NSArray *)keys;
+-  (void)ojs_each:(void (^)(id key, id value))block;
+-  (void)ojs_eachKey:(void (^)(id key))block;
+-  (void)ojs_eachValue:(void (^)(id value))block;
+-  (NSArray *)ojs_map:(id (^)(id key, id value))block;
+-  (BOOL)ojs_hasKey:(id)key;
+-  (NSDictionary *)ojs_pick:(NSArray *)keys;
+-  (NSDictionary *)ojs_omit:(NSArray *)keys;
 
 @end

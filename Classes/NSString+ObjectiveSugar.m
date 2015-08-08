@@ -31,36 +31,36 @@ NSString *NSStringWithFormat(NSString *formatString, ...) {
 
 @implementation NSString(Additions)
 
-- (NSArray *)split {
+-  (NSArray *)ojs_split {
     NSArray *result = [self componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return [result select:^BOOL(NSString *string) {
+    return [result ojs_select:^BOOL(NSString *string) {
         return string.length > 0;
     }];
 }
 
-- (NSArray *)split:(NSString *)delimiter {
+-  (NSArray *)ojs_split:(NSString *)delimiter {
     return [self componentsSeparatedByString:delimiter];
 }
 
-- (NSString *)camelCase {
+-  (NSString *)ojs_camelCase {
     NSString *spaced = [self stringByReplacingOccurrencesOfString:UNDERSCORE withString:SPACE];
     NSString *capitalized = [spaced capitalizedString];
 
     return [capitalized stringByReplacingOccurrencesOfString:SPACE withString:EMPTY_STRING];
 }
 
-- (NSString *)lowerCamelCase {
-    NSString *upperCamelCase = [self camelCase];
+-  (NSString *)ojs_lowerCamelCase {
+    NSString *upperCamelCase = [self ojs_camelCase];
     NSString *firstLetter = [upperCamelCase substringToIndex:1];
     return [upperCamelCase stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:firstLetter.lowercaseString];
 }
 
-- (BOOL)containsString:(NSString *) string {
+-  (BOOL)ojs_containsString:(NSString *) string {
     NSRange range = [self rangeOfString:string options:NSCaseInsensitiveSearch];
     return range.location != NSNotFound;
 }
 
-- (NSString *)strip {
+-  (NSString *)ojs_strip {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
