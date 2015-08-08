@@ -60,10 +60,4 @@
  **/
 -  (id)ojs_reduce:(id)initial withBlock:(id (^)(id accumulator, id object))block;
 
-
-#pragma mark - Deprecations
-
-@property(readonly) id first DEPRECATED_MSG_ATTRIBUTE("Please use -firstObject");
-@property(readonly) id last  DEPRECATED_MSG_ATTRIBUTE("Please use -lastObject");
-
 @end

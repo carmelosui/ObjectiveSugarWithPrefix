@@ -97,16 +97,5 @@
 	return accumulator;
 }
 
-
-#pragma mark - Deprecations
-
--  (id)ojs_first DEPRECATED_ATTRIBUTE {
-    return [self firstObject];
-}
-
--  (id)ojs_last DEPRECATED_ATTRIBUTE {
-    return [self lastObject];
-}
-
 @end
 

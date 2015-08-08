@@ -13,20 +13,6 @@
 @interface NSArray (ObjectiveSugar)
 
 /**
- The first item in the array, or nil.
-
- @return  The first item in the array, or nil.
- */
--  (id)ojs_first DEPRECATED_MSG_ATTRIBUTE("Please use -firstObject instead");
-
-/**
- The last item in the array, or nil.
-
- @return  The last item in the array, or nil.
- */
--  (id)ojs_last DEPRECATED_MSG_ATTRIBUTE("Please use -lastObject instead");
-
-/**
  A random element in the array, or nil.
 
  @return  A random element in the array, or nil.

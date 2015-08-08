@@ -219,13 +219,5 @@ static inline BOOL isBackwardsRange(NSString *rangeString) {
     return [self ojs_sample];
 }
 
--  (id)ojs_first{
-    return [self firstObject];
-}
-
--  (id)ojs_last DEPRECATED_ATTRIBUTE {
-    return [self lastObject];
-}
-
 @end
 
