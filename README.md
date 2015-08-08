@@ -11,7 +11,7 @@ Thanks for all your efforts Marin and Neil.
 
 A set of functional additions for Foundation you wish you'd had in the first place.
 
-This fork added **_ojs** (ObjectiveSugar) prefixes to all the methods, in case there are name confilicts between different category extensions.
+This fork added '**_ojs**' (ObjectiveSugar) prefixes to all the methods, in case there are name confilicts between different category extensions.
 
 This fork also removed all deprecated methods, these methods can be replaced by Foundation methods now.
 
