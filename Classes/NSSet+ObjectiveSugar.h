@@ -12,15 +12,15 @@
 
 /// Returns the first object of a given set.
 /// Note that sets are unordered, so this method won't always return the same thing
-@property(readonly) id firstObject;
+@property(readonly) id ojs_firstObject;
 
 /// Returns the last object of a given set.
 /// Note that sets are unordered, so this method won't always return the same thing
-@property(readonly) id lastObject;
+@property(readonly) id ojs_lastObject;
 
 
 /// Alias for -anyObject. Returns a random object from a given set
-@property(readonly) id sample;
+@property(readonly) id ojs_sample;
 
 /// Alias for -anyObject. Returns a random object from a given set
 -  (void)ojs_each:(void (^)(id object))block;

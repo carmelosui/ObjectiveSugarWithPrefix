@@ -21,7 +21,7 @@ static NSString * const OSMinusString = @"-";
     return self[index];
 }
 
--  (id)ojs_objectForKeyedSubscript:(id)key {
+-  (id)objectForKeyedSubscript:(id)key {
     if ([key isKindOfClass:[NSString class]])
         return [self subarrayWithRange:[self ojs_rangeFromString:key]];
 

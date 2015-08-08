@@ -36,7 +36,7 @@
 
  @return An array with elements within the specified range
  */
--  (id)ojs_objectForKeyedSubscript:(id <NSCopying>)key;
+-  (id)objectForKeyedSubscript:(id <NSCopying>)key;
 
 
 /**
