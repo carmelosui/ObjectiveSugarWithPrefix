@@ -1,29 +1,45 @@
-![logo](http://i.imgur.com/BvHpSz0.png)
+Forked from [ObjectiveSugar](https://github.com/supermarin/ObjectiveSugar)  
+
+ObjectiveSugar was originally created by  
+
+- Marin Usalj [@supermarin](https://github.com/supermarin)
+- Neil Cowburn [@neilco](https://github.com/neilco)
+
+Thanks for all your efforts Marin and Neil.
 
 > Write Objective C _like a boss_.<br/>
 
 A set of functional additions for Foundation you wish you'd had in the first place.
 
+This fork added "_ojs" (ObjectiveSugar) prefixes to all the methods, in case there are name confilicts between different category extensions.
 
-[![Build Status](https://travis-ci.org/supermarin/ObjectiveSugar.svg?branch=master)](https://travis-ci.org/supermarin/ObjectiveSugar)
+This fork also removed all deprecated methods, these methods can be replaced by Foundation methods now.
+
+These methods are:
+
+```
+[NSArray -first]  //replaced by [NSArray -firstObject]
+[NSArray -last]   //replaced by [NSArray -lastObject]
+[NSMutableArray -first]  //replaced by [NSMutableArray -firstObject]
+[NSMutableArray -last]   //replaced by [NSMutableArray -lastObject]
+```
 
 
 ## Usage
 
-1. Install via [CocoaPods](http://cocoapods.org/)
+1. Install, copy all files in **Class** folder to your project
 	
-	```
-	pod 'ObjectiveSugar'
-	```
+
 2. Import the public header
 
 	```
-	#import <ObjectiveSugar/ObjectiveSugar.h>
+	#import "ObjectiveSugar.h"
 	```
 
 
 ## Documentation
 
+All you need to change is to add '**ojs_**' prefix to all these methods.
 
 __NSNumber__ additions
 ``` objc
@@ -325,18 +341,3 @@ do {
     printf("Executed!\n");
 } until(true);
 ```
-
-## Contributing
-
-ObjectiveSugar is tested with [Kiwi](https://github.com/allending/Kiwi), and tests are located in Example.<br/>
-If you plan on contributing to the project, please:
-
-  * Write tests
-  * Write documentation
-
-
-## Team
-
-- Marin Usalj [@supermarin](https://github.com/supermarin)
-- Neil Cowburn [@neilco](https://github.com/neilco)
-
