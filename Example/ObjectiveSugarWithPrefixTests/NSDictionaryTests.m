@@ -30,7 +30,7 @@ describe(@"Iterators", ^{
 
 
     it(@"iterates each key and value", ^{
-        [sampleDict each:^(id key, id value) {
+        [sampleDict ojs_each:^(id key, id value) {
             [[sampleDict.allKeys[counter] should] equal:key];
             [[sampleDict.allValues[counter] should] equal:value];
             counter ++;
@@ -38,21 +38,21 @@ describe(@"Iterators", ^{
     });
 
     it(@"iterates all keys", ^{
-        [sampleDict eachKey:^(id key){
+        [sampleDict ojs_eachKey:^(id key){
             [[sampleDict.allKeys[counter] should] equal:key];
             counter ++;
         }];
     });
 
     it(@"iterates all values", ^{
-        [sampleDict eachValue:^(id value){
+        [sampleDict ojs_eachValue:^(id value){
             [[sampleDict.allValues[counter] should] equal:value];
             counter ++;
         }];
     });
 
     it(@"iterates all keys when mapping", ^{
-        NSArray *mapped = [sampleDict map:^id(id key, id value) {
+        NSArray *mapped = [sampleDict ojs_map:^id(id key, id value) {
             counter ++;
             return key;
         }];
@@ -61,7 +61,7 @@ describe(@"Iterators", ^{
     });
 
     it(@"iterates all values when mapping", ^{
-        NSArray *mapped = [sampleDict map:^id(id key, id value) {
+        NSArray *mapped = [sampleDict ojs_map:^id(id key, id value) {
             counter ++;
             return value;
         }];
@@ -79,12 +79,12 @@ describe(@"Keys", ^{
     };
 
     it(@"checks that dictionary contains the specified key", ^{
-        [[@([sampleDict hasKey:@"one"]) should] beTrue];
-        [[@([sampleDict hasKey:@"imaginaryKey"]) should] beFalse];
+        [[@([sampleDict ojs_hasKey:@"one"]) should] beTrue];
+        [[@([sampleDict ojs_hasKey:@"imaginaryKey"]) should] beFalse];
     });
 
     it(@"tolerates null keys", ^{
-        [[@([sampleDict hasKey:@"null"]) should] beTrue];
+        [[@([sampleDict ojs_hasKey:@"null"]) should] beTrue];
     });
 
 });
@@ -97,7 +97,7 @@ describe(@"Pick", ^{
     };
 
     it(@"returns a new dictionary with only the whitelisted keys", ^{
-        [[[sampleDict pick:@[@"one", @"two"]] should] equal:@{
+        [[[sampleDict ojs_pick:@[@"one", @"two"]] should] equal:@{
             @"one": @1,
             @"two": @2
         }];
@@ -112,7 +112,7 @@ describe(@"Omit", ^{
     };
 
     it(@"returns a new dictionary without the blacklisted keys", ^{
-        [[[sampleDict omit:@[@"one", @"two"]] should] equal:@{@"null": [NSNull null]}];
+        [[[sampleDict ojs_omit:@[@"one", @"two"]] should] equal:@{@"null": [NSNull null]}];
     });
 });
 

@@ -22,7 +22,7 @@ describe(@"Iterators", ^{
         it(@"-upto iterates inclusively", ^{
             __block NSInteger startingPoint = 5;
 
-            [@(startingPoint) upto:8 do:^(NSInteger number) {
+            [@(startingPoint) ojs_upto:8 do:^(NSInteger number) {
                 [[@(number) should] equal:@(startingPoint + counter)];
                 counter ++;
             }];
@@ -33,7 +33,7 @@ describe(@"Iterators", ^{
         it(@"-downto iterates inclusively", ^{
             __block NSInteger startingPoint = 8;
 
-            [@(startingPoint) downto:4 do:^(NSInteger number) {
+            [@(startingPoint) ojs_downto:4 do:^(NSInteger number) {
                 [[@(number) should] equal:@(startingPoint - counter)];
                 counter ++;
             }];
@@ -43,14 +43,14 @@ describe(@"Iterators", ^{
 
 
         it(@"times: iterates the exact number of times", ^{
-            [@5 times:^{
+            [@5 ojs_times:^{
                 counter ++;
             }];
             [[@(counter) should] equal:@5];
         });
 
         it(@"timesWithIndex: iterates with the right index", ^{
-            [@5 timesWithIndex:^(NSUInteger index) {
+            [@5 ojs_timesWithIndex:^(NSUInteger index) {
                 [[@(index) should] equal:@(counter)];
                 counter ++;
             }];
@@ -58,29 +58,29 @@ describe(@"Iterators", ^{
         });
 
         it(@"tests singular date inflections", ^{
-            [[[@1 second] should] equal:@1];
-            [[[@1 minute] should] equal:@60];
-            [[[@1 hour] should] equal:@3600];
-            [[[@1 day] should] equal:@86400];
-            [[[@1 week] should] equal:@604800];
-            [[[@1 fortnight] should] equal:@1209600];
-            [[[@1 month] should] equal:@2592000];
-            [[[@1 year] should] equal:@31557600];
+            [[[@1 ojs_second] should] equal:@1];
+            [[[@1 ojs_minute] should] equal:@60];
+            [[[@1 ojs_hour] should] equal:@3600];
+            [[[@1 ojs_day] should] equal:@86400];
+            [[[@1 ojs_week] should] equal:@604800];
+            [[[@1 ojs_fortnight] should] equal:@1209600];
+            [[[@1 ojs_month] should] equal:@2592000];
+            [[[@1 ojs_year] should] equal:@31557600];
         });
 
         it(@"tests plural date inflections", ^{
-            [[@(2).seconds should] equal:@2];
-            [[@(2).minutes should] equal:@120];
-            [[@(2).hours should] equal:@7200];
-            [[@(2).days should] equal:@172800];
-            [[@(2).weeks should] equal:@1209600];
-            [[@(2).fortnights should] equal:@2419200];
-            [[@(2).months should] equal:@5184000];
-            [[@(2).years should] equal:@63115200];
+            [[@(2).ojs_seconds should] equal:@2];
+            [[@(2).ojs_minutes should] equal:@120];
+            [[@(2).ojs_hours should] equal:@7200];
+            [[@(2).ojs_days should] equal:@172800];
+            [[@(2).ojs_weeks should] equal:@1209600];
+            [[@(2).ojs_fortnights should] equal:@2419200];
+            [[@(2).ojs_months should] equal:@5184000];
+            [[@(2).ojs_years should] equal:@63115200];
         });
 
         it(@"tests ago inflection", ^{
-            NSDate *testValue = @(30).seconds.ago;
+            NSDate *testValue = @(30).ojs_seconds.ojs_ago;
             NSDate *compareValue = [NSDate dateWithTimeIntervalSinceNow:-30];
 
             [[@([testValue timeIntervalSince1970]) should] equal:@([compareValue timeIntervalSince1970]).doubleValue
@@ -89,7 +89,7 @@ describe(@"Iterators", ^{
 
         it(@"tests since inflection", ^{
             NSDate *now = [NSDate date];
-            NSDate *testValue = [@(10).minutes since:now];
+            NSDate *testValue = [@(10).ojs_minutes ojs_since:now];
             NSDate *compareValue = [NSDate dateWithTimeInterval:600 sinceDate:now];
 
             [[@([testValue timeIntervalSince1970]) should] equal:@([compareValue timeIntervalSince1970])];
@@ -97,14 +97,14 @@ describe(@"Iterators", ^{
 
         it(@"tests until inflection", ^{
             NSDate *now = [NSDate date];
-            NSDate *testValue = [@(10).minutes until:now];
+            NSDate *testValue = [@(10).ojs_minutes ojs_until:now];
             NSDate *compareValue = [NSDate dateWithTimeInterval:-600 sinceDate:now];
 
             [[@([testValue timeIntervalSince1970]) should] equal:@([compareValue timeIntervalSince1970])];
         });
 
         it(@"tests from_now inflection", ^{
-            NSDate *testValue = @(30).minutes.fromNow;
+            NSDate *testValue = @(30).ojs_minutes.ojs_fromNow;
             NSDate *compareValue = [NSDate dateWithTimeIntervalSinceNow:(30 * 60)];
 
             [[@([testValue timeIntervalSince1970]) should] equal:@([compareValue timeIntervalSince1970]).doubleValue

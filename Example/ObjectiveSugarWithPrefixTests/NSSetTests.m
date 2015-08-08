@@ -21,7 +21,7 @@ describe(@"Iterators", ^{
         it(@"iterates using -each:^", ^{
             NSMutableArray *duplicate = [sampleSet.allObjects mutableCopy];
 
-            [sampleSet each:^(id object) {
+            [sampleSet ojs_each:^(id object) {
                 [[duplicate should] contain:object];
                 [duplicate removeObject:object];
             }];
@@ -31,7 +31,7 @@ describe(@"Iterators", ^{
         it(@"iterates using -eachWithIndex:^", ^{
             NSMutableArray *duplicate = [sampleSet.allObjects mutableCopy];
 
-            [sampleSet eachWithIndex:^(id object, NSUInteger index) {
+            [sampleSet ojs_eachWithIndex:^(id object, NSUInteger index) {
                 [[object should] equal:sampleSet.allObjects[index]];
                 [duplicate removeObject:object];
             }];
@@ -43,28 +43,28 @@ describe(@"Iterators", ^{
     context(@"first, last, sample", ^{
 
         it(@"-first returns object at index 0", ^{
-            [[sampleSet.firstObject should] equal:sampleSet.allObjects[0]];
+            [[sampleSet.ojs_firstObject should] equal:sampleSet.allObjects[0]];
         });
 
         it(@"-first does not crash if there's no objects in set", ^{
             KWBlock *block = [[KWBlock alloc] initWithBlock:^{
                 NSSet *empty = [NSSet set];
-                [empty.firstObject description];
+                [empty.ojs_firstObject description];
             }];
             [[block shouldNot] raise];
         });
 
         it(@"-last returns the last object", ^{
-            [[sampleSet.lastObject should] equal:sampleSet.allObjects.lastObject];
+            [[sampleSet.ojs_lastObject should] equal:sampleSet.allObjects.lastObject];
         });
 
         it(@"-sample returns a random object", ^{
-            [[sampleSet member:sampleSet.sample] shouldNotBeNil];
+            [[sampleSet member:sampleSet.ojs_sample] shouldNotBeNil];
         });
 
         it(@"-sample of empty set returns nil", ^{
             NSSet *emptySet = [NSSet set];
-            [emptySet.sample shouldBeNil];
+            [emptySet.ojs_sample shouldBeNil];
         });
     });
 
@@ -76,7 +76,7 @@ describe(@"Iterators", ^{
         });
 
         it(@"-map returns an array of objects returned by the block", ^{
-            NSArray *mapped = [sampleSet map:^id(id object) {
+            NSArray *mapped = [sampleSet ojs_map:^id(id object) {
                 return @([object isEqualToString:@"third"]);
             }];
             [[mapped should] containObjects:@NO, @YES, @NO, nil];
@@ -84,34 +84,34 @@ describe(@"Iterators", ^{
 
         it(@"-map treats nils the same way as -valueForKeyPath:", ^{
             NSSet *users = [NSSet setWithArray:@[@{@"name": @"Marin"}, @{@"fake": @"value"}, @{@"name": @"Neil"}]];
-            NSArray *mappedUsers = [users map:^id(NSDictionary *user) { return user[@"name"]; }];
+            NSArray *mappedUsers = [users ojs_map:^id(NSDictionary *user) { return user[@"name"]; }];
 
-            [[mappedUsers.sort should] equal:[[users valueForKeyPath:@"name"] allObjects].sort];
+            [[mappedUsers.ojs_sort should] equal:[[users valueForKeyPath:@"name"] allObjects].ojs_sort];
             [[mappedUsers should] haveCountOf:2];
             [[mappedUsers should] containObjects:@"Marin", @"Neil", nil];
         });
 
         it(@"-select returns an array containing all the elements of NSArray for which block is not false", ^{
-            [[[cars select:^BOOL(NSString *car) {
+            [[[cars ojs_select:^BOOL(NSString *car) {
                 return [car isEqualToString:@"F50"];
             }] should] equal:@[ @"F50" ]];
         });
 
         it(@"-reject returns an array containing all the elements of NSArray for which block is false", ^{
-            [[[cars reject:^BOOL(NSString* car) {
+            [[[cars ojs_reject:^BOOL(NSString* car) {
                 return [car isEqualToString:@"F50"];
             }] should] equal:@[ @"F458 Italia", @"Testarossa" ]];
         });
 
         it(@"-reduce returns a result of all the elements", ^{
-            [[[items reduce:^id(NSDictionary *accumulator, NSDictionary *item) {
+            [[[items ojs_reduce:^id(NSDictionary *accumulator, NSDictionary *item) {
                 return [accumulator[@"value"] intValue] > [item[@"value"] intValue]
                 ? accumulator : item;
             }] should] equal:@{ @"value": @9 }];
         });
 
         it(@"-reduce:withBlock with accumulator behaves like -reduce and starts with user provided element", ^{
-            [[[items reduce:@0 withBlock:^id(NSNumber *accumulator, NSDictionary *item) {
+            [[[items ojs_reduce:@0 withBlock:^id(NSNumber *accumulator, NSDictionary *item) {
                 return @(accumulator.intValue + [item[@"value"] intValue]);
             }] should] equal:@18];
         });
@@ -122,7 +122,7 @@ describe(@"Iterators", ^{
 
         it(@"-sort aliases -sortUsingComparator:", ^{
             NSSet *numbers = [NSSet setWithArray:@[ @4, @1, @3, @2 ]];
-            [[[numbers sort] should] equal:@[ @1, @2, @3, @4 ]];
+            [[[numbers ojs_sort] should] equal:@[ @1, @2, @3, @4 ]];
         });
 
     });
